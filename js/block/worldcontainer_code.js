@@ -1,8 +1,3 @@
-import * as Blockly from 'blockly';
-import {
-	luaGenerator
-} from 'blockly/lua_compressed';
-
 Blockly.Lua['worldcontainer_addfurnace'] = function (block) {
 	let axis_x = luaGenerator.valueToCode(block, 'AXIS_X', Blockly.Lua.ORDER_NONE) || 'nil';
 	let axis_y = luaGenerator.valueToCode(block, 'AXIS_Y', Blockly.Lua.ORDER_NONE) || 'nil';
