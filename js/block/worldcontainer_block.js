@@ -1,4 +1,4 @@
-
+import * as Blockly from 'blockly';
 
 Blockly.Blocks['worldcontainer_addfurnace'] = {
 	init: function () {
