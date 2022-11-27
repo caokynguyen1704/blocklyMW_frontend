@@ -13,6 +13,8 @@ function loadJS(folder,list_file){
 block_list=[
     "worldcontainer_block.js",
     "worldcontainer_code.js",
+    "block_block.js",
+    "block_code.js",
 ]
 
 block_demo_list=[
