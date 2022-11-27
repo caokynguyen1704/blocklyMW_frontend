@@ -1,5 +1,3 @@
-
-
 Blockly.Blocks['worldcontainer_addfurnace'] = {
 	init: function () {
 		this.appendDummyInput()
