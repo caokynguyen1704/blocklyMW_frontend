@@ -1,3 +1,11 @@
+function createVariableReturn(block) {
+	block.appendDummyInput()
+        .appendField("ID người chơi")
+        .appendField(new Blockly.FieldVariable("id"), "id_name");
+    block.appendDummyInput()
+        .appendField("ID người chơi")
+        .appendField(new Blockly.FieldVariable("id"), "id_name");
+}
 
 Blockly.Blocks['event_player'] = {
     init: function () {
@@ -61,7 +69,9 @@ Blockly.Blocks['event_player'] = {
         this.setHelpUrl("Help Url");
         this.setOnChange(function (changeEvent) {
             if (changeEvent.type == "change") {
-console.log(this.getFieldValue('event_key'))
+                //this.getFieldValue('event_key')
+               // createVariableReturn(this)
+               console.log("Time:"+Date.now()+"    "+this.getFieldValue('event_key'))
             }
         });
     }
