@@ -13,6 +13,8 @@ function loadJS(folder,list_file){
 block_list=[
     "worldcontainer_block.js",
     "worldcontainer_code.js",
+    "event_block.js",
+    "event_code.js",
 ]
 
 block_demo_list=[
@@ -20,12 +22,11 @@ block_demo_list=[
     "api_block.js",
     "chat_block_code.js",
     "chat_block.js",
-    "event_block_code.js",
-    "event_block.js",
     "player_block_code.js",
     "player_block.js"
 ]
 
 loadJS("block",block_list)
 loadJS("block_demo",block_demo_list)
+
 
