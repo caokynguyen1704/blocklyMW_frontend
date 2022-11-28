@@ -10,6 +10,40 @@ function loadJS(folder,list_file){
     }
 }
 
+Blockly.Extensions.register('connection_switch', function () {
+	this.updateState = function () {
+		if (this.doInline_) {
+			if (this.previousConnection && this.previousConnection.isConnected()) {
+				this.previousConnection.disconnect();
+			}
+			if (this.nextConnection && this.nextConnection.isConnected()) {
+				this.nextConnection.disconnect();
+			}
+			this.setPreviousStatement(false, null);
+			this.setNextStatement(false, null);
+			this.setOutput(true, null);
+		} else {
+			if (this.outputConnection && this.outputConnection.isConnected()) {
+				this.outputConnection.disconnect();
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setOutput(false, null);
+		}
+	}
+
+	this.validate = function (newValue) {
+		let source = this.getSourceBlock()
+		source.doInline_ = newValue == 'TRUE';
+		source.updateState();
+		return newValue;
+	}
+
+	this.appendDummyInput()
+		.appendField(new Blockly.FieldCheckbox("FALSE", this.validate), "__GENERATE_AS_INLINE")
+	this.getField("__GENERATE_AS_INLINE").setCheckCharacter('𝒊')
+})
+
 block_list=[
     "worldcontainer_block.js",
     "worldcontainer_code.js",
