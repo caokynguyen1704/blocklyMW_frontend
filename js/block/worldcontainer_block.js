@@ -1,41 +1,7 @@
-function appendConnectionSwitch(block) {
-	block.updateShape_ = function () {
-		if (block.getFieldValue("__GENERATE_AS_INLINE") === 'TRUE') {
-			if (block.previousConnection && block.previousConnection.isConnected()) {
-				block.previousConnection.disconnect();
-			}
-			if (block.nextConnection && block.nextConnection.isConnected()) {
-				block.nextConnection.disconnect();
-			}
-			block.setPreviousStatement(false, null);
-			block.setNextStatement(false, null);
-			block.setOutput(true, null);
-		} else {
-			if (block.outputConnection && block.outputConnection.isConnected()) {
-				block.outputConnection.disconnect();
-			}
-			block.setPreviousStatement(true, null);
-			block.setNextStatement(true, null);
-			block.setOutput(false, null);
-		}
-	}
-
-	block.validate = function (newValue) {
-		block.updateShape_()
-		return newValue;
-	}
-
-	block.appendDummyInput()
-		.appendField(new Blockly.FieldCheckbox("FALSE", block.validate), "__GENERATE_AS_INLINE")
-	block.getField("__GENERATE_AS_INLINE").setCheckCharacter('𝒊')
-}
-
 Blockly.Blocks['worldcontainer_addfurnace'] = {
 	init: function () {
-		this.appendDummyInput()
-			.appendField("Add furnace at")
 		this.appendValueInput("AXIS_X")
-			.appendField("x:")
+			.appendField("Add furnace at x:")
 		this.appendValueInput("AXIS_Y")
 			.appendField("y:")
 		this.appendValueInput("AXIS_Z")
@@ -46,7 +12,7 @@ Blockly.Blocks['worldcontainer_addfurnace'] = {
 		this.setColour(60);
 		this.setTooltip("Add furnace at position.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -66,7 +32,7 @@ Blockly.Blocks['worldcontainer_removefurnace'] = {
 		this.setColour(60);
 		this.setTooltip("Remove furnace at position.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -86,7 +52,7 @@ Blockly.Blocks['worldcontainer_checkfurnace'] = {
 		this.setColour(60);
 		this.setTooltip("Check at position if there is a furnace. Return 0 if true.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -106,7 +72,7 @@ Blockly.Blocks['worldcontainer_getfurnaceheatpercent'] = {
 		this.setColour(60);
 		this.setTooltip("Return the fuel percentage of furnace at position.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -126,7 +92,7 @@ Blockly.Blocks['worldcontainer_getfurnacemeltpercent'] = {
 		this.setColour(60);
 		this.setTooltip("Return the melting percentage of furnace at position.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -146,7 +112,7 @@ Blockly.Blocks['worldcontainer_addstoragebox'] = {
 		this.setColour(60);
 		this.setTooltip("Add storage box at position.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -166,7 +132,7 @@ Blockly.Blocks['worldcontainer_removestoragebox'] = {
 		this.setColour(60);
 		this.setTooltip("Remove storage box at position.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -186,7 +152,7 @@ Blockly.Blocks['worldcontainer_checkstorage'] = {
 		this.setColour(60);
 		this.setTooltip("Check at position if there is a storagebox. Return 0 if true.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -206,7 +172,7 @@ Blockly.Blocks['worldcontainer_clearstoragebox'] = {
 		this.setColour(60);
 		this.setTooltip("Remove all items of storage box at position.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -228,7 +194,7 @@ Blockly.Blocks['worldcontainer_checkstorageemptygrid_item'] = {
 		this.setColour(60);
 		this.setTooltip("Check storage box at position if it has an item. Return 0 if true.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -250,7 +216,7 @@ Blockly.Blocks['worldcontainer_checkstorageemptygrid_empty'] = {
 		this.setColour(60);
 		this.setTooltip("Check storage box at position if it has an empty slot. Return 0 if true.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -276,7 +242,7 @@ Blockly.Blocks['worldcontainer_setstorageitem'] = {
 		this.setColour(60);
 		this.setTooltip("Set a slot in a storage box as item. 0 is the first slot");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -298,7 +264,7 @@ Blockly.Blocks['worldcontainer_getstorageitem'] = {
 		this.setColour(60);
 		this.setTooltip("Get item ID and count of slot in a storage box. 0 is the first slot");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -322,7 +288,7 @@ Blockly.Blocks['worldcontainer_addstorageitem'] = {
 		this.setColour(60);
 		this.setTooltip("Add items to a storage box. Return the number of item added successfully");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -346,7 +312,7 @@ Blockly.Blocks['worldcontainer_removestorageitembyid'] = {
 		this.setColour(60);
 		this.setTooltip("Remove items from a storage box with item id.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -370,7 +336,7 @@ Blockly.Blocks['worldcontainer_removestorageitembyindex'] = {
 		this.setColour(60);
 		this.setTooltip("Remove items from a storage box at slot.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
 
@@ -391,6 +357,6 @@ Blockly.Blocks['worldcontainer_clearcontainer'] = {
 		this.setColour(60);
 		this.setTooltip("Remove all items from a storage box.");
 		this.setHelpUrl("");
-		appendConnectionSwitch(this);
+		Blockly.utils.extensions.apply('connection_switch', this, false);
 	}
 };
