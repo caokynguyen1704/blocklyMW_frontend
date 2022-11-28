@@ -88,7 +88,7 @@ function changeValueInDownForm(event) {
             }
             if ( EventData[event_name].length>0){
                 for (i = 0; i < EventData[event_name].length; i++) {
-                    block.appendDummyInput()
+                    block.appendDummyInput('index'+i)
                         .appendField(new Blockly.FieldLabelSerializable(Param2String[EventData[event_name][i]]), "var"+i)
                         .appendField(new Blockly.FieldVariable("✅"+EventData[event_name][i]), "var"+i+"_val")
                 }
