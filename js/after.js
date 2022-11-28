@@ -14,4 +14,8 @@ event_list=[
     "event.js",
 ]
 
-loadBodyJS("event",event_list)
+   
+
+$(window).load(function(){
+    loadBodyJS("event",event_list)
+});

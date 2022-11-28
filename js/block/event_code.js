@@ -10,3 +10,7 @@ var numFunc=0
     var code = 'ScriptSupportEvent:registerEvent([=['+dropdown_event_key+']=],'+namefunc+')\n';
     return code_function+code;
   };
+
+
+
+
