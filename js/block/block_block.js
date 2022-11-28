@@ -33,14 +33,14 @@ function appendConnectionSwitch(block) {
 
 Blockly.Blocks['block_issolidblock'] = {
 	init: function () {
-		this.appendDummyInput()
-			.appendField("Check if block is solid at")
 		this.appendValueInput("AXIS_X")
-			.appendField("x:")
+			.appendField("Block at x:")
 		this.appendValueInput("AXIS_Y")
 			.appendField("y:")
 		this.appendValueInput("AXIS_Z")
 			.appendField("z:")
+		this.appendDummyInput()
+			.appendField("is solid?")
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
@@ -53,14 +53,14 @@ Blockly.Blocks['block_issolidblock'] = {
 
 Blockly.Blocks['block_isliquidblock'] = {
 	init: function () {
-		this.appendDummyInput()
-			.appendField("Check if block is liquid at")
 		this.appendValueInput("AXIS_X")
-			.appendField("x:")
+			.appendField("Block at x:")
 		this.appendValueInput("AXIS_Y")
 			.appendField("y:")
 		this.appendValueInput("AXIS_Z")
 			.appendField("z:")
+		this.appendDummyInput()
+			.appendField("is liquid?")
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
@@ -73,14 +73,14 @@ Blockly.Blocks['block_isliquidblock'] = {
 
 Blockly.Blocks['block_isairblock'] = {
 	init: function () {
-		this.appendDummyInput()
-			.appendField("Check if block is air at")
 		this.appendValueInput("AXIS_X")
-			.appendField("x:")
+			.appendField("Block at x:")
 		this.appendValueInput("AXIS_Y")
 			.appendField("y:")
 		this.appendValueInput("AXIS_Z")
 			.appendField("z:")
+		this.appendDummyInput()
+			.appendField("is air?")
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
@@ -93,10 +93,8 @@ Blockly.Blocks['block_isairblock'] = {
 
 Blockly.Blocks['block_getblockid'] = {
 	init: function () {
-		this.appendDummyInput()
-			.appendField("Get ID of block at")
 		this.appendValueInput("AXIS_X")
-			.appendField("x:")
+			.appendField("Block ID at x:")
 		this.appendValueInput("AXIS_Y")
 			.appendField("y:")
 		this.appendValueInput("AXIS_Z")
@@ -113,18 +111,16 @@ Blockly.Blocks['block_getblockid'] = {
 
 Blockly.Blocks['block_setblockall'] = {
 	init: function () {
-		this.appendDummyInput()
-			.appendField("Set block at")
+		this.appendValueInput("BLOCK_ID")
+			.appendField("Set ID")
+		this.appendValueInput("BLOCK_DATA")
+			.appendField("data")
 		this.appendValueInput("AXIS_X")
-			.appendField("x:")
+			.appendField("of block at x:")
 		this.appendValueInput("AXIS_Y")
 			.appendField("y:")
 		this.appendValueInput("AXIS_Z")
 			.appendField("z:")
-		this.appendValueInput("BLOCK_ID")
-			.appendField("as block")
-		this.appendValueInput("BLOCK_DATA")
-			.appendField("with data")
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
@@ -137,10 +133,8 @@ Blockly.Blocks['block_setblockall'] = {
 
 Blockly.Blocks['block_getblockdata'] = {
 	init: function () {
-		this.appendDummyInput()
-			.appendField("Get block data at")
 		this.appendValueInput("AXIS_X")
-			.appendField("x:")
+			.appendField("Block data at x:")
 		this.appendValueInput("AXIS_Y")
 			.appendField("y:")
 		this.appendValueInput("AXIS_Z")
@@ -159,10 +153,8 @@ Blockly.Blocks['block_placeblock'] = {
 	init: function () {
 		this.appendValueInput("BLOCK_ID")
 			.appendField("Place block")
-		this.appendDummyInput()
-			.appendField("at")
 		this.appendValueInput("AXIS_X")
-			.appendField("x:")
+			.appendField("at x:")
 		this.appendValueInput("AXIS_Y")
 			.appendField("y:")
 		this.appendValueInput("AXIS_Z")
@@ -185,10 +177,8 @@ Blockly.Blocks['block_replaceblock'] = {
 	init: function () {
 		this.appendValueInput("BLOCK_ID")
 			.appendField("Replace block")
-		this.appendDummyInput()
-			.appendField("at")
 		this.appendValueInput("AXIS_X")
-			.appendField("x:")
+			.appendField("at x:")
 		this.appendValueInput("AXIS_Y")
 			.appendField("y:")
 		this.appendValueInput("AXIS_Z")
@@ -209,10 +199,8 @@ Blockly.Blocks['block_replaceblock'] = {
 
 Blockly.Blocks['block_destroyblock'] = {
 	init: function () {
-		this.appendDummyInput()
-			.appendField("Destroy block at")
 		this.appendValueInput("AXIS_X")
-			.appendField("x:")
+			.appendField("Destroy block at x:")
 		this.appendValueInput("AXIS_Y")
 			.appendField("y:")
 		this.appendValueInput("AXIS_Z")
@@ -232,11 +220,11 @@ Blockly.Blocks['block_destroyblock'] = {
 Blockly.Blocks['block_setblocksettingattstate'] = {
 	init: function () {
 		this.appendValueInput("ATTR")
-			.appendField("Set attribute with ID")
+			.appendField("Set attribute")
+		this.appendValueInput("BLOCK_ID")
+			.appendField("of block")
 		this.appendValueInput("SWITCH")
 			.appendField("to")
-		this.appendValueInput("BLOCK_ID")
-			.appendField("for block with ID")
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
@@ -250,9 +238,9 @@ Blockly.Blocks['block_setblocksettingattstate'] = {
 Blockly.Blocks['block_getblocksettingattstate'] = {
 	init: function () {
 		this.appendValueInput("ATTR")
-			.appendField("Get value of attribute with ID")
+			.appendField("Attribute")
 		this.appendValueInput("BLOCK_ID")
-			.appendField("of block with ID")
+			.appendField("of block")
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
@@ -265,16 +253,14 @@ Blockly.Blocks['block_getblocksettingattstate'] = {
 
 Blockly.Blocks['block_getblockswitchstatus'] = {
 	init: function () {
-		this.appendDummyInput()
-			.appendField("Check if block at")
 		this.appendValueInput("AXIS_X")
-			.appendField("x:")
+			.appendField("Block at x:")
 		this.appendValueInput("AXIS_Y")
 			.appendField("y:")
 		this.appendValueInput("AXIS_Z")
 			.appendField("z:")
 		this.appendDummyInput()
-			.appendField("is activated")
+			.appendField("is activated?")
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
@@ -288,7 +274,7 @@ Blockly.Blocks['block_getblockswitchstatus'] = {
 Blockly.Blocks['block_setblockswitchstatus'] = {
 	init: function () {
 		this.appendDummyInput()
-			.appendField("Set state of block at")
+			.appendField("Set block state at")
 		this.appendValueInput("AXIS_X")
 			.appendField("x:")
 		this.appendValueInput("AXIS_Y")
@@ -310,7 +296,7 @@ Blockly.Blocks['block_setblockswitchstatus'] = {
 Blockly.Blocks['block_getblockdatabydir'] = {
 	init: function () {
 		this.appendValueInput("BLOCK_ID")
-			.appendField("Get data of block with ID")
+			.appendField("Data of block")
 		this.appendValueInput("FACING")
 			.appendField("facing")
 		this.setInputsInline(true);
@@ -326,7 +312,7 @@ Blockly.Blocks['block_getblockdatabydir'] = {
 Blockly.Blocks['block_getblockpowerstatus'] = {
 	init: function () {
 		this.appendDummyInput()
-			.appendField("Check if block at")
+			.appendField("Block at")
 		this.appendValueInput("AXIS_X")
 			.appendField("x:")
 		this.appendValueInput("AXIS_Y")
@@ -334,7 +320,7 @@ Blockly.Blocks['block_getblockpowerstatus'] = {
 		this.appendValueInput("AXIS_Z")
 			.appendField("z:")
 		this.appendDummyInput()
-			.appendField("has power")
+			.appendField("has power?")
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
