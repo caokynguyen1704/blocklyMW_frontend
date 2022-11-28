@@ -59,7 +59,9 @@ block_demo_list=[
     "event_block_code.js",
     "event_block.js",
     "player_block_code.js",
-    "player_block.js"
+    "player_block.js",
+    "team_block.js",
+    "team_block_code.js"
 ]
 
 loadJS("block",block_list)
