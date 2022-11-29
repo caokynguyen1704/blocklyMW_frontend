@@ -25,7 +25,10 @@ block_demo_list=[
     "player_block_code.js",
     "player_block.js"
 ]
-
+variable_list=[
+    "event.js"
+]
+loadJS("variable",variable_list)
 loadJS("block",block_list)
 loadJS("block_demo",block_demo_list)
 
