@@ -19,7 +19,6 @@ Blockly.Extensions.register('connection_switch', function () {
 			if (this.nextConnection && this.nextConnection.isConnected()) {
 				this.nextConnection.disconnect();
 			}
-			this.setInputsInline(true);
 			this.setPreviousStatement(false, null);
 			this.setNextStatement(false, null);
 			this.setOutput(true, null);
@@ -27,7 +26,6 @@ Blockly.Extensions.register('connection_switch', function () {
 			if (this.outputConnection && this.outputConnection.isConnected()) {
 				this.outputConnection.disconnect();
 			}
-			this.setInputsInline(true);
 			this.setPreviousStatement(true, null);
 			this.setNextStatement(true, null);
 			this.setOutput(false, null);
