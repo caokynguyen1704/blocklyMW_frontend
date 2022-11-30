@@ -3,6 +3,7 @@ Blockly.Blocks['team_getnum'] = {
     this.appendDummyInput()
         .appendField("Get Number Of Current Player Team");
     this.setPreviousStatement(true, null);
+    this.setInputsInline(true);
     this.setNextStatement(true, null);
     this.setColour(20)
  this.setTooltip("The Number Of Current Team");
@@ -14,13 +15,15 @@ Blockly.Blocks['team_getplayernum'] = {
     init: function() {
       this.appendDummyInput()
           .appendField("Get")
-          .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"],["Green","3"],["Yellow","4"],["Orange","5"],["Purple","6"]]), "TEAMID")
-          // .appendField(new Blockly.FieldTextInput("Team ID"), "TEAMID")
+          // .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"],["Green","3"],["Yellow","4"],["Orange","5"],["Purple","6"]]), "TEAMID")
+      this.appendValueInput('TEAMID')
+      this.appendDummyInput()
           .appendField("Team Number Of")
           .appendField(new Blockly.FieldDropdown([["Dead","0"], ["Alive","1"], ["All","2"]]), "ALIVE")
           .appendField("Player");
       this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
+    this.setInputsInline(true);
+    this.setNextStatement(true, null);
       this.setColour(20)
    this.setTooltip("Obtain The Number Of Players In Designate Team");
    this.setHelpUrl("https://developers.miniworldgame.com/wiki/team.html#getteamplayernum");
@@ -31,12 +34,14 @@ Blockly.Blocks['team_getplayers'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Get")
-        .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"],["Green","3"],["Yellow","4"],["Orange","5"],["Purple","6"]]), "TEAMID")
+        // .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"],["Green","3"],["Yellow","4"],["Orange","5"],["Purple","6"]]), "TEAMID")
+    this.appendValueInput('TEAMID')
+    this.appendDummyInput()
         .appendField("Team")
-        // .appendField(new Blockly.FieldTextInput("Team ID"), "TEAMID")
         .appendField(new Blockly.FieldDropdown([["Dead","0"], ["Alive","1"], ["All","2"]]), "ALIVE")
         .appendField("Players");
     this.setPreviousStatement(true, null);
+    this.setInputsInline(true);
     this.setNextStatement(true, null);
     this.setColour(20);
  this.setTooltip("Get The Designate Player Team");
@@ -48,12 +53,14 @@ Blockly.Blocks['team_randomplayer'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Get")
-        .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"],["Green","3"],["Yellow","4"],["Orange","5"],["Purple","6"]]), "TEAMID")
-        // .appendField(new Blockly.FieldTextInput("Team ID"), "TEAMID")
+        // .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"],["Green","3"],["Yellow","4"],["Orange","5"],["Purple","6"]]), "TEAMID")
+    this.appendValueInput('TEAMID')
+    this.appendDummyInput()
         .appendField("Team Random")
         .appendField(new Blockly.FieldDropdown([["Dead","0"], ["Alive","1"], ["All","2"]]), "ALIVE")
         .appendField("Player");
     this.setPreviousStatement(true, null);
+    this.setInputsInline(true);
     this.setNextStatement(true, null);
     this.setColour(20);
  this.setTooltip("Get Random Player UID In Team");
@@ -65,9 +72,12 @@ Blockly.Blocks['team_getcreatures'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Get")
-        .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+        // .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+    this.appendValueInput('TEAMID')
+    this.appendDummyInput()
         .appendField("Team Creatures");
     this.setPreviousStatement(true, null);
+    this.setInputsInline(true);
     this.setNextStatement(true, null);
     this.setColour(20);
  this.setTooltip("Obtain Creature In Designate Team");
@@ -79,11 +89,15 @@ Blockly.Blocks['team_setscore'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Set")
-        .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+        // .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+    this.appendValueInput('TEAMID')
+    this.appendDummyInput()
         .appendField("Team With")
-        .appendField(new Blockly.FieldTextInput("Score"), "SCORE")
+    this.appendValueInput('SCORE')
+    this.appendDummyInput()
         .appendField("Score");
     this.setPreviousStatement(true, null);
+    this.setInputsInline(true);
     this.setNextStatement(true, null);
     this.setColour(20);
  this.setTooltip("Set Score Of Team");
@@ -95,11 +109,14 @@ Blockly.Blocks['team_getscore'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Get")
-        .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+    this.appendValueInput('TEAMID')
+    this.appendDummyInput()
+        // .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
         .appendField("Team Score");
+    this.setInputsInline(true);
     this.setColour(20);
- this.setTooltip("Get The Team Score");
- this.setHelpUrl("https://developers.miniworldgame.com/wiki/team.html#getteamscore");
+    this.setTooltip("Get The Team Score");
+    this.setHelpUrl("https://developers.miniworldgame.com/wiki/team.html#getteamscore");
  Blockly.Extensions.apply('connection_switch', this, false);;
   }
 };
@@ -107,10 +124,14 @@ Blockly.Blocks['team_addscore'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Add")
-        .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+        // .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+    this.appendValueInput('TEAMID')
+    this.appendDummyInput()
         .appendField("Team With")
-        .appendField(new Blockly.FieldTextInput("Score"), "SCORE")
+    this.appendValueInput('SCORE')
+    this.appendDummyInput()
         .appendField("Score");
+    this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(20);
@@ -123,8 +144,11 @@ Blockly.Blocks['team_setresult'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Set")
+    this.appendValueInput('TEAMID')
+    this.appendDummyInput()
         .appendField("Team")
         .appendField(new Blockly.FieldDropdown([["Wins","1"], ["Loses","2"]]), "RESULT");
+    this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(20);
@@ -137,8 +161,11 @@ Blockly.Blocks['team_getresult'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Get")
-        .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+        // .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+    this.appendValueInput('TEAMID')
+    this.appendDummyInput()
         .appendField("Team Result");
+    this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(20);
@@ -151,10 +178,14 @@ Blockly.Blocks['team_setdietimes'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Set")
-        .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+        // .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+    this.appendValueInput('TEAMID')
+    this.appendDummyInput()
         .appendField("Team With")
-        .appendField(new Blockly.FieldTextInput("Die Times"), "DIETIME")
+    this.appendValueInput('DIETIME')
+    this.appendDummyInput()
         .appendField("Die Times");
+    this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(20);
@@ -167,8 +198,11 @@ Blockly.Blocks['team_getdietimes'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Get")
-        .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+        // .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+    this.appendValueInput('TEAMID')
+    this.appendDummyInput()
         .appendField("Team Die Times");
+    this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(20);
@@ -181,10 +215,14 @@ Blockly.Blocks['team_adddietimes'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Add")
-        .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+        // .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+    this.appendValueInput('TEAMID')
+    this.appendDummyInput()
         .appendField("Team With")
-        .appendField(new Blockly.FieldTextInput("Die Times"), "DIETIME")
+    this.appendValueInput('DIETIME')
+    this.appendDummyInput()
         .appendField("Die Times");
+    this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(20);
@@ -200,7 +238,9 @@ Blockly.Blocks['team_changeplayer'] = {
         .appendField("Change");
     this.appendDummyInput()
         .appendField("'s Team To")
-        .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+        // .appendField(new Blockly.FieldDropdown([["White","0"], ["Red","1"], ["Blue","2"], ["Green","3"], ["Yellow","4"], ["Orange","5"], ["Purple","6"]]), "TEAMID")
+    this.appendValueInput('TEAMID')
+    this.appendDummyInput()
         .appendField("Team");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
