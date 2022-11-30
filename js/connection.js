@@ -11,6 +11,9 @@ function loadJS(folder,list_file){
 }
 
 Blockly.Extensions.register('connection_switch', function () {
+	this.checkReturnBlock_ = function () {
+		
+	}
 	this.updateState = function () {
 		if (this.doInline_) {
 			if (this.previousConnection && this.previousConnection.isConnected()) {
