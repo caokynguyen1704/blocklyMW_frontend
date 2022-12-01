@@ -29,7 +29,6 @@ function changeValueInDownForm(event) {
                 GlobalData_Event=block.connection_
             }
             
-            console.log(GlobalData_Event)
         }else{
             GlobalData_Event=[]
         }
@@ -47,7 +46,6 @@ function changeValueInDownForm(event) {
             }
         }
     }
-    console.log(event.type)
 }
 
 

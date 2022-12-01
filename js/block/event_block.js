@@ -333,7 +333,6 @@ Blockly.Blocks['event_player'] = {
         this.updateShape_(false);
     },
     updateShape_: function (isMove) {
-            console.log("UP:"+GlobalData_Event)
             var connection=this.connection_
             if (isMove){
                 connection=GlobalData_Event
