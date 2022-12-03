@@ -29,6 +29,47 @@ var numFunc=0
     return code_function+code;
   };
 
+  Blockly.Lua['event_world'] = function(block) {
+    var dropdown_event_key = block.getFieldValue('event_key');
+    var statements_event_function = Blockly.Lua.statementToCode(block, 'event_function');
+    // TODO: Assemble Lua into code variable.
+    numFunc=numFunc+1
+    var namefunc=dropdown_event_key.replaceAll(".", "")+""+Date.now()+numFunc
+    var createVariable=""
+    if (EventData[dropdown_event_key].length>0){
+      var i=0
+      while (block.getFieldValue('VAR'+i)!=undefined){
+        var variable_name =Blockly.Lua.nameDB_.getName(block.getFieldValue('VAR'+i), Blockly.Variables.CATEGORY_NAME);
+        createVariable=createVariable+""+"\tlocal "+variable_name+"=__p."+String2Params(variable_name.replaceAll('_E2_9C_85',"").replaceAll("_"," "))+"\n"
+        i++
+      }
+    }
+    
+    var code_function =  'function '+namefunc+'(__p)\n' +createVariable+statements_event_function+'\nend\n';
+    var code = 'ScriptSupportEvent:registerEvent([=['+dropdown_event_key+']=],'+namefunc+')\n';
+    return code_function+code;
+  };
 
+
+  Blockly.Lua['event_creature'] = function(block) {
+    var dropdown_event_key = block.getFieldValue('event_key');
+    var statements_event_function = Blockly.Lua.statementToCode(block, 'event_function');
+    // TODO: Assemble Lua into code variable.
+    numFunc=numFunc+1
+    var namefunc=dropdown_event_key.replaceAll(".", "")+""+Date.now()+numFunc
+    var createVariable=""
+    if (EventData[dropdown_event_key].length>0){
+      var i=0
+      while (block.getFieldValue('VAR'+i)!=undefined){
+        var variable_name =Blockly.Lua.nameDB_.getName(block.getFieldValue('VAR'+i), Blockly.Variables.CATEGORY_NAME);
+        createVariable=createVariable+""+"\tlocal "+variable_name+"=__p."+String2Params(variable_name.replaceAll('_E2_9C_85',"").replaceAll("_"," "))+"\n"
+        i++
+      }
+    }
+    
+    var code_function =  'function '+namefunc+'(__p)\n' +createVariable+statements_event_function+'\nend\n';
+    var code = 'ScriptSupportEvent:registerEvent([=['+dropdown_event_key+']=],'+namefunc+')\n';
+    return code_function+code;
+  };
 
 

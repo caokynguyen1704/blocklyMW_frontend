@@ -18,7 +18,31 @@
 //     };
 //     `)
 // }
-  
+
+Blockly.Blocks["helperobjid"] = {
+    init: function () {
+        this.appendDummyInput().appendField("Helper");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+    },
+    name:"helperobjid"
+};  
+Blockly.Blocks["act"] = {
+    init: function () {
+        this.appendDummyInput().appendField("Action");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+    },
+    name:"act"
+};  
+Blockly.Blocks["actorattr"] = {
+    init: function () {
+        this.appendDummyInput().appendField("Creature atributes");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+    },
+    name:"actorattr"
+};
 Blockly.Blocks["eventobjid"] = {
     init: function () {
         this.appendDummyInput().appendField("Owner");
@@ -240,7 +264,7 @@ Blockly.Blocks['event_player'] = {
             .appendField("When")
             .appendField(new Blockly.FieldDropdown(
                 [
-                    ["Select", ""],
+                    ["Player --choose--", ""],
                     ["Player is defeated", "Game.AnyPlayer.Defeat"],
                     ["Player enters game\t", "Game.AnyPlayer.EnterGame"],
                     ["Player leaves game\t", "Game.AnyPlayer.LeaveGame"],
@@ -288,6 +312,190 @@ Blockly.Blocks['event_player'] = {
                     ["Player make selection on shortcut bar\t", "Player.SelectShortcut"],
                     ["Player change of shortcut bar\t", "Player.ShortcutChange"],
                     ["Player use item\t", "Player.UseItem"]
+                ]), "event_key");
+        this.setColour(270);
+        this.setTooltip("Event Block");
+        this.setHelpUrl("Help Url");
+        //this.setMutator(new Blockly.Mutator(EventData[event.newValue]));
+    },
+    mutationToDom: function () {
+        var container = Blockly.utils.xml.createElement('mutation');
+        container.setAttribute('items', this.itemCount_);
+        return container;
+    },
+    domToMutation: function (xmlElement) {
+        this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+        this.updateShape_(true);
+    },
+    decompose: function (workspace) {
+        var containerBlock = workspace.newBlock('event_container');
+        containerBlock.initSvg();
+         var connection = containerBlock.getInput('STACK').connection;
+     
+        for (var i = 0; i < this.itemCount_; i++) {
+            var itemBlock = workspace.newBlock(this.connection_[i]);
+            itemBlock.initSvg();
+            connection.connect(itemBlock.previousConnection);
+            connection = itemBlock.nextConnection;
+        }
+        return containerBlock;
+    },
+    compose: function (containerBlock) {
+        var itemBlock = containerBlock.getInputTargetBlock('STACK');
+        // Count number of inputs.
+        var connections = [];
+        while (itemBlock) {
+            this.connection_.push(itemBlock.type);
+            connections.push(itemBlock.name);
+            itemBlock = itemBlock.nextConnection &&
+                itemBlock.nextConnection.targetBlock();
+                
+        }
+        
+        this.itemCount_ = connections.length;
+        this.connection_=connections
+        this.updateShape_(false);
+    },
+    updateShape_: function (isMove) {
+            var connection=this.connection_
+            if (isMove){
+                connection=GlobalData_Event
+            }
+            for (var i = 0; i < connection.length; i++) {
+                if (!this.getInput('ADD' + i)) {
+                    this.appendDummyInput('ADD' + i)
+                        .appendField('variable')
+                        .appendField(new Blockly.FieldVariable('✅'+Param2String[connection[i]]), 'VAR' + i)  
+                        .appendField('can be used');
+                }
+            }
+            // Remove deleted inputs.
+            while (this.getInput('ADD' + i)) {
+                this.removeInput('ADD' + i);
+                i++;
+            }
+        
+    
+    }
+};
+
+
+
+Blockly.Blocks['event_world'] = {
+    init: function () {
+        this.appendStatementInput("event_function")
+            .setCheck(null)
+            .appendField("When")
+            .appendField(new Blockly.FieldDropdown(
+                [
+                    ["World --choose--", ""],
+                    ["Change of weather","Weather.Changed"],
+                    ["Container has item output", "Backpack.ItemTakeOut"],
+                    ["Container has item input", "Backpack.ItemPutIn"],
+                    ["Change of backpack bar","Backpack.ItemChange"]
+
+                ]), "event_key");
+        this.setColour(270);
+        this.setTooltip("Event Block");
+        this.setHelpUrl("Help Url");
+        //this.setMutator(new Blockly.Mutator(EventData[event.newValue]));
+    },
+    mutationToDom: function () {
+        var container = Blockly.utils.xml.createElement('mutation');
+        container.setAttribute('items', this.itemCount_);
+        return container;
+    },
+    domToMutation: function (xmlElement) {
+        this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+        this.updateShape_(true);
+    },
+    decompose: function (workspace) {
+        var containerBlock = workspace.newBlock('event_container');
+        containerBlock.initSvg();
+         var connection = containerBlock.getInput('STACK').connection;
+     
+        for (var i = 0; i < this.itemCount_; i++) {
+            var itemBlock = workspace.newBlock(this.connection_[i]);
+            itemBlock.initSvg();
+            connection.connect(itemBlock.previousConnection);
+            connection = itemBlock.nextConnection;
+        }
+        return containerBlock;
+    },
+    compose: function (containerBlock) {
+        var itemBlock = containerBlock.getInputTargetBlock('STACK');
+        // Count number of inputs.
+        var connections = [];
+        while (itemBlock) {
+            this.connection_.push(itemBlock.type);
+            connections.push(itemBlock.name);
+            itemBlock = itemBlock.nextConnection &&
+                itemBlock.nextConnection.targetBlock();
+                
+        }
+        
+        this.itemCount_ = connections.length;
+        this.connection_=connections
+        this.updateShape_(false);
+    },
+    updateShape_: function (isMove) {
+            var connection=this.connection_
+            if (isMove){
+                connection=GlobalData_Event
+            }
+            for (var i = 0; i < connection.length; i++) {
+                if (!this.getInput('ADD' + i)) {
+                    this.appendDummyInput('ADD' + i)
+                        .appendField('variable')
+                        .appendField(new Blockly.FieldVariable('✅'+Param2String[connection[i]]), 'VAR' + i)  
+                        .appendField('can be used');
+                }
+            }
+            // Remove deleted inputs.
+            while (this.getInput('ADD' + i)) {
+                this.removeInput('ADD' + i);
+                i++;
+            }
+        
+    
+    }
+};
+
+
+
+Blockly.Blocks['event_creature'] = {
+    init: function () {
+        this.appendStatementInput("event_function")
+            .setCheck(null)
+            .appendField("When")
+            .appendField(new Blockly.FieldDropdown(
+                [
+                    ["Creature --choose--", ""],
+                    ["Creature get status effect", "Actor.AddBuff"],
+                    ["Creature enters area\t", "Actor.AreaIn"],
+                    ["Creature leaves area\t", "Actor.AreaOut"],
+                    ["Creature attacking\t", "Actor.Attack"],
+                    ["Creature attack hits\t", "Actor.AttackHit"],
+                    ["Creature greeted\t", "Actor.BeGreetedBy"],
+                    ["Creature take damage\t", "Actor.BeHurt"],
+                    ["Creature defeat other player/creature\t", "Actor.Beat"],
+                    ["Creature change of attribute\t", "Actor.ChangeAttr"],
+
+                    ["Creature change motion state\t", "Actor.ChangeMotion"],
+                    ["Creature collide with other player/creature\t", "Actor.Collide"],
+                    ["Creature is created\t", "Actor.Create"],
+                    ["Creature deals damage to other\t", "Actor.Damage"],
+                    ["Creature die\t", "Actor.Die"],
+                    ["Creature interact with the players\t", "Actor.InteractEvent"],
+                    ["Creature take damage\t", "Actor.NewBeHurt"],
+
+                    ["Creature smashed by projectile\t", "Actor.Projectile.Hit"],
+                    ["Creature lose status effect\t", "Actor.RemoveBuff"],
+                    ["Creature send a distress message\t", "Actor.ReqHelp"],
+
+                    ["Creature Village Totem binding point change\t", "Actor.VillageBindPosChange"],
+                    ["Creature Villages Work binding point change\t", "Actor.VillagerFlagChange"]
+
                 ]), "event_key");
         this.setColour(270);
         this.setTooltip("Event Block");
