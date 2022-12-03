@@ -388,7 +388,7 @@ Blockly.Blocks['event_world'] = {
             .appendField("When")
             .appendField(new Blockly.FieldDropdown(
                 [
-                    ["World --choose--", ""],
+                    ["--choose--", ""],
                     ["Change of weather","Weather.Changed"],
                     ["Container has item output", "Backpack.ItemTakeOut"],
                     ["Container has item input", "Backpack.ItemPutIn"],
