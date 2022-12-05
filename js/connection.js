@@ -49,6 +49,8 @@ block_list=[
     "worldcontainer_code.js",
     "block_block.js",
     "block_code.js",
+    "n-logic_block.js",
+    "n-logic_code.js",
 ]
 
 block_demo_list=[
