@@ -3,8 +3,9 @@ changeValueInDownForm = function (event) {
     if (event != undefined) {
         if (event.type == "selected") {
             var block = Code.workspace.getBlockById(event.newElementId);
+			Current=block.type
             if (block != undefined) {
-                if (block.type == "event_player") {
+                if ((block.type == "event_player")||(block.type == "event_world")||(block.type == "event_creature")||(block.type == "event_block")) {
                     if (typeof (block.connection_) == "undefined") {
                         GlobalData_Event = []
                     } else {
@@ -19,7 +20,7 @@ changeValueInDownForm = function (event) {
             GlobalData_Event = []
             var block = Code.workspace.getBlockById(event.blockId);
             if (block != undefined) {
-                if ((block.type == "event_player")||(block.type == "event_world")||(block.type == "event_creature")) {
+                if ((block.type == "event_player")||(block.type == "event_world")||(block.type == "event_creature")||(block.type == "event_block")) {
                     var i = 0;
                     block.itemCount_ = i;
                     block.connection_ = []

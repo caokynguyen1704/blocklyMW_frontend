@@ -255,17 +255,78 @@ Blockly.Blocks['event_container'] = {
     }
 };
 
-
+function addMutator(block){
+	block.mutationToDom= function () {
+        var container = Blockly.utils.xml.createElement('mutation');
+        container.setAttribute('items', this.itemCount_);
+        return container;
+    },
+    block.domToMutation= function (xmlElement) {
+        this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+        this.updateShape_(true);
+    },
+    block.decompose= function (workspace) {
+        var containerBlock = workspace.newBlock('event_container');
+        containerBlock.initSvg();
+         var connection = containerBlock.getInput('STACK').connection;
+     
+        for (var i = 0; i < this.itemCount_; i++) {
+            var itemBlock = workspace.newBlock(this.connection_[i]);
+            itemBlock.initSvg();
+            connection.connect(itemBlock.previousConnection);
+            connection = itemBlock.nextConnection;
+        }
+        return containerBlock;
+    },
+    block.compose= function (containerBlock) {
+        var itemBlock = containerBlock.getInputTargetBlock('STACK');
+        // Count number of inputs.
+        var connections = [];
+        while (itemBlock) {
+            this.connection_.push(itemBlock.type);
+            connections.push(itemBlock.name);
+            itemBlock = itemBlock.nextConnection &&
+                itemBlock.nextConnection.targetBlock();
+                
+        }
+        
+        this.itemCount_ = connections.length;
+        this.connection_=connections
+        this.updateShape_(false);
+    },
+    block.updateShape_= function (isMove) {
+            var connection=this.connection_
+            if (isMove){
+                connection=GlobalData_Event
+            }
+            for (var i = 0; i < connection.length; i++) {
+                if (!this.getInput('ADD' + i)) {
+                    this.appendDummyInput('ADD' + i)
+                        .appendField('variable')
+                        .appendField(new Blockly.FieldVariable('✅'+Param2String[connection[i]]), 'VAR' + i)  
+                        .appendField('can be used');
+                }
+            }
+            // Remove deleted inputs.
+            while (this.getInput('ADD' + i)) {
+                this.removeInput('ADD' + i);
+                i++;
+            }
+        
+    
+    }
+}
 
 Blockly.Blocks['event_player'] = {
     init: function () {
+		addMutator(this);
         this.appendStatementInput("event_function")
             .setCheck(null)
             .appendField("When")
             .appendField(new Blockly.FieldDropdown(
                 [
-                    ["Player --choose--", ""],
-                    ["Player is defeated", "Game.AnyPlayer.Defeat"],
+                    ["--Player Event--", ""],
+                    ["Player is defeated\t", "Game.AnyPlayer.Defeat"],
                     ["Player enters game\t", "Game.AnyPlayer.EnterGame"],
                     ["Player leaves game\t", "Game.AnyPlayer.LeaveGame"],
                     ["Player loads game", "Game.AnyPlayer.ReadStage"],
@@ -313,82 +374,25 @@ Blockly.Blocks['event_player'] = {
                     ["Player change of shortcut bar\t", "Player.ShortcutChange"],
                     ["Player use item\t", "Player.UseItem"]
                 ]), "event_key");
-        this.setColour(270);
+        this.setColour(250);
         this.setTooltip("Event Block");
         this.setHelpUrl("Help Url");
         //this.setMutator(new Blockly.Mutator(EventData[event.newValue]));
     },
-    mutationToDom: function () {
-        var container = Blockly.utils.xml.createElement('mutation');
-        container.setAttribute('items', this.itemCount_);
-        return container;
-    },
-    domToMutation: function (xmlElement) {
-        this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
-        this.updateShape_(true);
-    },
-    decompose: function (workspace) {
-        var containerBlock = workspace.newBlock('event_container');
-        containerBlock.initSvg();
-         var connection = containerBlock.getInput('STACK').connection;
-     
-        for (var i = 0; i < this.itemCount_; i++) {
-            var itemBlock = workspace.newBlock(this.connection_[i]);
-            itemBlock.initSvg();
-            connection.connect(itemBlock.previousConnection);
-            connection = itemBlock.nextConnection;
-        }
-        return containerBlock;
-    },
-    compose: function (containerBlock) {
-        var itemBlock = containerBlock.getInputTargetBlock('STACK');
-        // Count number of inputs.
-        var connections = [];
-        while (itemBlock) {
-            this.connection_.push(itemBlock.type);
-            connections.push(itemBlock.name);
-            itemBlock = itemBlock.nextConnection &&
-                itemBlock.nextConnection.targetBlock();
-                
-        }
-        
-        this.itemCount_ = connections.length;
-        this.connection_=connections
-        this.updateShape_(false);
-    },
-    updateShape_: function (isMove) {
-            var connection=this.connection_
-            if (isMove){
-                connection=GlobalData_Event
-            }
-            for (var i = 0; i < connection.length; i++) {
-                if (!this.getInput('ADD' + i)) {
-                    this.appendDummyInput('ADD' + i)
-                        .appendField('variable')
-                        .appendField(new Blockly.FieldVariable('✅'+Param2String[connection[i]]), 'VAR' + i)  
-                        .appendField('can be used');
-                }
-            }
-            // Remove deleted inputs.
-            while (this.getInput('ADD' + i)) {
-                this.removeInput('ADD' + i);
-                i++;
-            }
-        
-    
-    }
+	
 };
 
 
 
 Blockly.Blocks['event_world'] = {
     init: function () {
+		addMutator(this);
         this.appendStatementInput("event_function")
             .setCheck(null)
             .appendField("When")
             .appendField(new Blockly.FieldDropdown(
                 [
-                    ["--choose--", ""],
+                    ["--World Event--", ""],
                     ["Change of weather","Weather.Changed"],
                     ["Container has item output", "Backpack.ItemTakeOut"],
                     ["Container has item input", "Backpack.ItemPutIn"],
@@ -400,78 +404,20 @@ Blockly.Blocks['event_world'] = {
         this.setHelpUrl("Help Url");
         //this.setMutator(new Blockly.Mutator(EventData[event.newValue]));
     },
-    mutationToDom: function () {
-        var container = Blockly.utils.xml.createElement('mutation');
-        container.setAttribute('items', this.itemCount_);
-        return container;
-    },
-    domToMutation: function (xmlElement) {
-        this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
-        this.updateShape_(true);
-    },
-    decompose: function (workspace) {
-        var containerBlock = workspace.newBlock('event_container');
-        containerBlock.initSvg();
-         var connection = containerBlock.getInput('STACK').connection;
-     
-        for (var i = 0; i < this.itemCount_; i++) {
-            var itemBlock = workspace.newBlock(this.connection_[i]);
-            itemBlock.initSvg();
-            connection.connect(itemBlock.previousConnection);
-            connection = itemBlock.nextConnection;
-        }
-        return containerBlock;
-    },
-    compose: function (containerBlock) {
-        var itemBlock = containerBlock.getInputTargetBlock('STACK');
-        // Count number of inputs.
-        var connections = [];
-        while (itemBlock) {
-            this.connection_.push(itemBlock.type);
-            connections.push(itemBlock.name);
-            itemBlock = itemBlock.nextConnection &&
-                itemBlock.nextConnection.targetBlock();
-                
-        }
-        
-        this.itemCount_ = connections.length;
-        this.connection_=connections
-        this.updateShape_(false);
-    },
-    updateShape_: function (isMove) {
-            var connection=this.connection_
-            if (isMove){
-                connection=GlobalData_Event
-            }
-            for (var i = 0; i < connection.length; i++) {
-                if (!this.getInput('ADD' + i)) {
-                    this.appendDummyInput('ADD' + i)
-                        .appendField('variable')
-                        .appendField(new Blockly.FieldVariable('✅'+Param2String[connection[i]]), 'VAR' + i)  
-                        .appendField('can be used');
-                }
-            }
-            // Remove deleted inputs.
-            while (this.getInput('ADD' + i)) {
-                this.removeInput('ADD' + i);
-                i++;
-            }
-        
-    
-    }
 };
 
 
 
 Blockly.Blocks['event_creature'] = {
     init: function () {
+		addMutator(this);
         this.appendStatementInput("event_function")
             .setCheck(null)
             .appendField("When")
             .appendField(new Blockly.FieldDropdown(
                 [
-                    ["Creature --choose--", ""],
-                    ["Creature get status effect", "Actor.AddBuff"],
+                    ["--Creature Event--", ""],
+                    ["Creature get status effect\t", "Actor.AddBuff"],
                     ["Creature enters area\t", "Actor.AreaIn"],
                     ["Creature leaves area\t", "Actor.AreaOut"],
                     ["Creature attacking\t", "Actor.Attack"],
@@ -497,69 +443,80 @@ Blockly.Blocks['event_creature'] = {
                     ["Creature Villages Work binding point change\t", "Actor.VillagerFlagChange"]
 
                 ]), "event_key");
-        this.setColour(270);
+        this.setColour(290);
         this.setTooltip("Event Block");
         this.setHelpUrl("Help Url");
-        //this.setMutator(new Blockly.Mutator(EventData[event.newValue]));
     },
-    mutationToDom: function () {
-        var container = Blockly.utils.xml.createElement('mutation');
-        container.setAttribute('items', this.itemCount_);
-        return container;
-    },
-    domToMutation: function (xmlElement) {
-        this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
-        this.updateShape_(true);
-    },
-    decompose: function (workspace) {
-        var containerBlock = workspace.newBlock('event_container');
-        containerBlock.initSvg();
-         var connection = containerBlock.getInput('STACK').connection;
-     
-        for (var i = 0; i < this.itemCount_; i++) {
-            var itemBlock = workspace.newBlock(this.connection_[i]);
-            itemBlock.initSvg();
-            connection.connect(itemBlock.previousConnection);
-            connection = itemBlock.nextConnection;
-        }
-        return containerBlock;
-    },
-    compose: function (containerBlock) {
-        var itemBlock = containerBlock.getInputTargetBlock('STACK');
-        // Count number of inputs.
-        var connections = [];
-        while (itemBlock) {
-            this.connection_.push(itemBlock.type);
-            connections.push(itemBlock.name);
-            itemBlock = itemBlock.nextConnection &&
-                itemBlock.nextConnection.targetBlock();
-                
-        }
-        
-        this.itemCount_ = connections.length;
-        this.connection_=connections
-        this.updateShape_(false);
-    },
-    updateShape_: function (isMove) {
-            var connection=this.connection_
-            if (isMove){
-                connection=GlobalData_Event
-            }
-            for (var i = 0; i < connection.length; i++) {
-                if (!this.getInput('ADD' + i)) {
-                    this.appendDummyInput('ADD' + i)
-                        .appendField('variable')
-                        .appendField(new Blockly.FieldVariable('✅'+Param2String[connection[i]]), 'VAR' + i)  
-                        .appendField('can be used');
-                }
-            }
-            // Remove deleted inputs.
-            while (this.getInput('ADD' + i)) {
-                this.removeInput('ADD' + i);
-                i++;
-            }
-        
-    
-    }
 };
 
+Blockly.Blocks['event_block'] = {
+    init: function () {
+		addMutator(this);
+        this.appendStatementInput("event_function")
+            .setCheck(null)
+            .appendField("When")
+            .appendField(new Blockly.FieldDropdown(
+                [
+                    ["--Block Event--", ""],
+                    ["Block is created\t", "Block.Add"],
+                    ["Block is destoryed\t", "Block.DestroyBy"],
+                    ["Start mining block\t", "Block.Dig.Begin"],
+                    ["Cancel mining block\t", "Block.Dig.Cancel"],
+                    ["Complete mining block\t", "Block.Dig.End"],
+                    ["Block being fertilized\t", "Block.Fertilize"],
+                    ["Block being placed\t", "Block.PlaceBy"],
+                    ["Block being removed\t", "Block.Remove"],
+                    ["Block being triggered\t", "Block.Trigger"]
+                ]), "event_key");
+        this.setColour(310);
+        this.setTooltip("Event Block");
+        this.setHelpUrl("Help Url");
+    },
+};
+
+Blockly.Blocks['event_item'] = {
+    init: function () {
+		addMutator(this);
+        this.appendStatementInput("event_function")
+            .setCheck(null)
+            .appendField("When")
+            .appendField(new Blockly.FieldDropdown(
+                [
+                    ["--Item Event--", ""],
+                    ["Drop item enters area\t", "DropItem.AreaIn"],
+                    ["Drop item leaves area\t", "DropItem.AreaOut"],
+                    ["Item disappear\t", "Block.Dig.Begin"],
+                    ["Item is picked up\t", "Item.Pickup"],
+                    ["Projectile enters area\t", "Missile.AreaIn"],
+                    ["Projectile leaves area\t", "Missile.AreaOut"],
+                    ["Projectile is created\t", "Missile.Create"],
+                ]), "event_key");
+        this.setColour(330);
+        this.setTooltip("Event Block");
+        this.setHelpUrl("Help Url");
+    },
+};
+
+Blockly.Blocks['event_logic'] = {
+    init: function () {
+		addMutator(this);
+        this.appendStatementInput("event_function")
+            .setCheck(null)
+            .appendField("When")
+            .appendField(new Blockly.FieldDropdown(
+                [
+                    ["--Logic Event--", ""],
+                    ["Game over\t", "Game.End"],
+                    ["World time is [Hour]\t", "Game.Hour"],
+                    ["Start game\t", "Game.Load"],
+                    ["Game is running\t", "Game.Run"],
+                    ["World time is [second] second\t", "Game.RunTime"],
+                    ["Game start\t", "Game.Start"],
+                    ["Game timeout\t", "Game.TimeOver"],
+					["Any change of Timer\t", "minitimer.change"],
+                ]), "event_key");
+        this.setColour(220);
+        this.setTooltip("Event Block");
+        this.setHelpUrl("Help Url");
+    },
+};

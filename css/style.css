@@ -112,7 +112,6 @@ table {
 }
 td {
   padding: 0;
-  vertical-align: top;
 }
 .content {
   visibility: hidden;

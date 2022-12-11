@@ -51,11 +51,11 @@ block_list=[
     "block_code.js",
     "event_block.js",
     "event_code.js",
+	"variableAPI_code.js",
+	"variableAPI_block.js",
 ]
 
 block_demo_list=[
-    "api_block_code.js",
-    "api_block.js",
     "chat_block_code.js",
     "chat_block.js",
     "player_block_code.js",
