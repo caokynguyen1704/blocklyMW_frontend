@@ -19,14 +19,20 @@ Blockly.Lua['set_variable_api'] = function(block) {
 	}
 	var code=`
 	local ${text_name_variable}={}
-	for k,v in pairs({\n${statements_name}})do
+	for k,v in pairs({${statements_name}})do
 		local arr=${toStr2}
 		if arr[k]==nil then
 			break
 		end
+		if arr[k]== "ErorCode.OK" then
+			if v==0 then
+				v=true
+			else
+				v=false
+			end
+		end
 		${toStr1}
-	end
-	`
+	end`
     return code;
   };
 

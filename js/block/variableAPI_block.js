@@ -50,7 +50,7 @@ Blockly.Blocks['call_data'] = {
 					["Owner", "eventobjid"], 
 					["Target", "toobjid"], 
 					["Hour", "hour"], 
-					["Second", "second"], 
+					["Second", "ticks"], 
 					["Timer", "timerid"], 
 					["Name of timer", "timername"], 
 					["Buff", "buffid"], 

@@ -18,7 +18,12 @@
 //     };
 //     `)
 // }
-
+function isEvent(str){
+	if ((str == "event_item")||(str == "event_logic")||(str == "event_player")||(str == "event_world")||(str == "event_creature")||(str == "event_block")) {
+		return true
+	}
+	return false
+}
 Blockly.Blocks["helperobjid"] = {
     init: function () {
         this.appendDummyInput().appendField("Helper");
@@ -73,13 +78,13 @@ Blockly.Blocks["hour"] = {
 };
 
 
-Blockly.Blocks["second"] = {
+Blockly.Blocks["ticks"] = {
     init: function () {
         this.appendDummyInput().appendField("Second");
         this.setPreviousStatement(true);
         this.setNextStatement(true);
     },
-    name:"second"
+    name:"ticks"
 };
 
 

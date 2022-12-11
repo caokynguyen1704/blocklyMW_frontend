@@ -15,8 +15,24 @@ Code.workspace.addChangeListener(function (event) {
 	} else {
 
 	}
+}
+)
 
 
 
+Code.workspace.addChangeListener(function (event) {
+	console.log(Current)
+	if (isEvent(Current)){
+		if ((event.type != Blockly.Events['VAR_RENAME'])) {
+			return;
+		}
+		if ((event.type == Blockly.Events['VAR_RENAME'])) {
+			if ((event.oldName != event.newName)&&(event.oldName.indexOf("✅")>-1)) {
+				Code.workspace.renameVariableById(event.varId, event.oldName);
+				alert("You can't rename this variable")
+			}
+		}
+	}
+	
 }
 )
