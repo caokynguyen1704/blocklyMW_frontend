@@ -12,7 +12,8 @@ function loadBodyJS(folder,list_file){
 
 event_list=[
     "event.js",
-	'api.js'
+	'api.js',
+	'popup.js'
 ]
 
    

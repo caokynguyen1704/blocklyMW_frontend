@@ -1,11 +1,9 @@
 Blockly.Blocks['worldcontainer_addfurnace'] = {
 	init: function () {
-		this.appendValueInput("AXIS_X")
-			.appendField("Add furnace at x:")
-		this.appendValueInput("AXIS_Y")
-			.appendField("y:")
-		this.appendValueInput("AXIS_Z")
-			.appendField("z:")
+		this.appendValueInput("CONTENT")
+			.appendField("Send system messeger with content")
+		this.appendValueInput("PLAYER")
+			.appendField("to player")
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
